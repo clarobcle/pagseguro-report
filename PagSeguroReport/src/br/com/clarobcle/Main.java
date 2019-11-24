@@ -11,6 +11,7 @@ public class Main {
 		 */
 		Credentials c = new Credentials();
 		c.getAccounts();
+		//System.out.println(c.getTokens());
 	}
 
 }

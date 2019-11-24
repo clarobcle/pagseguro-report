@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import com.github.lgooddatepicker.datepicker.DatePicker;
 import com.github.lgooddatepicker.datepicker.DatePickerSettings;
 
+import br.com.clarobcle.entitity.Pagseguro;
 import br.com.clarobcle.secret.Credentials;
 
 import java.awt.FlowLayout;
@@ -89,14 +90,23 @@ public class View extends JFrame {
 
 		Credentials c = new Credentials();
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox <String> comboBox = new JComboBox <String>();
         for(String item : c.getAccounts()) {
         	comboBox.addItem(item);
         }
 		comboBox.setBounds(184, 51, 300, 30);
+		comboBox.setSelectedIndex(-1);
 		contentPane.add(comboBox);
 		
 		JButton bt_submit = new JButton("Visualizar Relatório");
+		bt_submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String email = (String) comboBox.getSelectedItem();
+				String url = "https://ws.pagseguro.uol.com.br/v3/transactions/?email="+email+"&token="+c.getTokens(email)+"&initialDate="+datePicker1.getDate()+"&finalDate="+datePicker2.getDate();
+
+			}
+		});
 		bt_submit.setBounds(210, 207, 150, 50);
 		contentPane.add(bt_submit);
 	}
