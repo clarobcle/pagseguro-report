@@ -14,12 +14,13 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class Report {
 	
-	public void generatReport(List <Pagseguro> sales) throws JRException {
+	public void generatReport(List <Pagseguro> url) throws JRException {
+		
 		InputStream file = Report.class.getResourceAsStream("/reports/report.jrxml");
 		
 		JasperReport report = JasperCompileManager.compileReport(file);
 		
-		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(sales));
+		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(url));
 		
 		JasperViewer.viewReport(print, false);
 	}

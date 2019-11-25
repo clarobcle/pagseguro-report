@@ -3,13 +3,16 @@ package br.com.clarobcle.view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -22,9 +25,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+
 import com.github.lgooddatepicker.datepicker.DatePicker;
 import com.github.lgooddatepicker.datepicker.DatePickerSettings;
 
+import br.com.clarobcle.controller.Url;
 import br.com.clarobcle.secret.Credentials;
 
 public class View extends JFrame {
@@ -120,14 +131,23 @@ public class View extends JFrame {
 				
 					String email = (String) comboBox.getSelectedItem();
 
-					String url = "https://ws.pagseguro.uol.com.br/v3/transactions/?email="+email+"\n"+"&token="+c.getTokens(email)+"\n"+"&initialDate="+format(datePicker1.getDate())+"&finalDate="+(format(datePicker2.getDate()));
+					//String url = "https://ws.pagseguro.uol.com.br/v3/transactions/?email="+email+"\n"+"&token="+c.getTokens(email)+"\n"+"&initialDate="+format(datePicker1.getDate())+"&finalDate="+(format(datePicker2.getDate()));
 					//JOptionPane.showMessageDialog(null, url);
-
+					
+					Url url = new Url();
+					try {
+						System.out.println(
+						url.getUrl(email, c.getTokens(email), format(datePicker1.getDate()), format(datePicker2.getDate()))
+						);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				} else {
 				    JOptionPane.showMessageDialog(null,
 				    		"Por favor, selecione o E-mail desejado!", //mensagem
 				            "Erro", // titulo da janela 
-				            JOptionPane.ERROR_MESSAGE);
+				            JOptionPane.ERROR_MESSAGE);//decoracao
 				}
 				
 							}

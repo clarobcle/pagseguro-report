@@ -2,7 +2,6 @@
 <!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PagSeguroReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PagSeguroAdapter"/>
 	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
@@ -30,6 +29,7 @@
 	<variable name="contador" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{grossAmount}]]></variableExpression>
 	</variable>
+	<variable name="email" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -43,16 +43,16 @@
 				</textElement>
 				<text><![CDATA[SECEG - PagSeguro]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="SubTitle" x="0" y="70" width="555" height="29" forecolor="#000000" uuid="eef58983-008d-4a5b-8e47-97f8d4670c7a">
+			<textField>
+				<reportElement style="SubTitle" x="0" y="70" width="555" height="29" forecolor="#000000" uuid="1428c7aa-7c23-455c-bf00-3876b50e760a">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="22" isBold="false"/>
 				</textElement>
-				<text><![CDATA[mod.cobranca]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{email}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
