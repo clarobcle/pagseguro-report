@@ -115,11 +115,22 @@ public class View extends JFrame {
 
 				//&initialDate=2019-11-07T00:00:00.000-03:00&finalDate=2019-11-07T23:59:59.000-03:00
 
-				String email = (String) comboBox.getSelectedItem();
+				//validar combobox se nulo
+				if (comboBox.getSelectedItem() != null) {
+				
+					String email = (String) comboBox.getSelectedItem();
 
-				String url = "https://ws.pagseguro.uol.com.br/v3/transactions/?email="+email+"\n"+"&token="+c.getTokens(email)+"\n"+"&initialDate="+format(datePicker1.getDate())+"&finalDate="+(format(datePicker2.getDate()));
-				JOptionPane.showMessageDialog(null, url);
-			}
+					String url = "https://ws.pagseguro.uol.com.br/v3/transactions/?email="+email+"\n"+"&token="+c.getTokens(email)+"\n"+"&initialDate="+format(datePicker1.getDate())+"&finalDate="+(format(datePicker2.getDate()));
+					//JOptionPane.showMessageDialog(null, url);
+
+				} else {
+				    JOptionPane.showMessageDialog(null,
+				    		"Por favor, selecione o E-mail desejado!", //mensagem
+				            "Erro", // titulo da janela 
+				            JOptionPane.ERROR_MESSAGE);
+				}
+				
+							}
 		});
 		bt_submit.setBounds(210, 207, 150, 50);
 		contentPane.add(bt_submit);
