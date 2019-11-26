@@ -1,9 +1,12 @@
-package br.com.clarobcle.entitity;
+package br.com.clarobcle.entity;
 
-public class Pagseguro {
+import java.io.Serializable;
+
+public class Pagseguro implements Serializable {
 
 	private String data;
 	private Float grossAmount;
+	
 	public String getData() {
 		return data;
 	}

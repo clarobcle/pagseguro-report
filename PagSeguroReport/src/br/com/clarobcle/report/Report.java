@@ -3,7 +3,7 @@ package br.com.clarobcle.report;
 import java.io.InputStream;
 import java.util.List;
 
-import br.com.clarobcle.entitity.Pagseguro;
+import br.com.clarobcle.entity.Pagseguro;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
