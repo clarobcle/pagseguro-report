@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -58,12 +60,27 @@ public class View extends JFrame {
 		});
 	}
 
+	//method author:Rafael
 	private static String format(LocalDate ld) {
 		Date d = java.sql.Date.valueOf(ld);
 		TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		//DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		df.setTimeZone(tz);
 		return df.format(d);
+	}
+	
+	//method author:Claudio
+	private static String formatNow() {
+	LocalDateTime agora = LocalDateTime.now();
+
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+	String agoraFormatado = agora.format(formatter);
+	
+	return agoraFormatado;
+	
+	//System.out.println("LocalDateTime formatado: " + agoraFormatado);
 	}
 
 	/**
@@ -136,9 +153,18 @@ public class View extends JFrame {
 					
 					Url url = new Url();
 					try {
-						System.out.println(
-						url.getUrl(email, c.getTokens(email), format(datePicker1.getDate()), format(datePicker2.getDate()))
-						);
+												
+						if (datePicker1.getDate().toString() != null) {
+							System.out.println(
+									url.getUrl(email, c.getTokens(email), format(datePicker1.getDate()), format(datePicker2.getDate()))	);
+						}else {
+							System.out.println(
+									url.getUrl(email, c.getTokens(email), format(datePicker1.getDate()), format(datePicker2.getDate())) );
+						}
+						
+						//System.out.println(format(datePicker1.getDate()));
+						//String test = ".000-03:00";
+						System.out.println((datePicker2.getDate().toString()));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
