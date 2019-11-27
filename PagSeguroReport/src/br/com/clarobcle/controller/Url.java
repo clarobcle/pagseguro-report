@@ -23,7 +23,9 @@ public class Url {
 
 		String url = URLDecoder.decode(urlBuilder.build().toString(), StandardCharsets.UTF_8.name());
 
+		//mostrar a url carregada
 		System.out.println(url);
+		
 		Request request = new Request.Builder()
 				.url(url)
 				.build();

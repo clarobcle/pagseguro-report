@@ -78,14 +78,14 @@ public class View extends JFrame {
 		String formatDateTime = todaydate.format(formatter);
 		return formatDateTime;
 	}
+	//wow yup yay.
+	private static String attime(LocalDate datepicker) {
+		LocalDate a = datepicker;
 
-	private static String attime(LocalDate ld) {
-		LocalDate date = LocalDate.now();
-		LocalTime time = LocalTime.parse("23:59");
-		LocalDateTime lt = date.atTime(time);
+		LocalDateTime l = a.atTime(23,59);  
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-		String formatDateTime = lt.format(formatter);
-		return formatDateTime;  
+		String formatDateTime = l.format(formatter);
+		return formatDateTime; 
 	}
 
 	/**
@@ -153,10 +153,10 @@ public class View extends JFrame {
 
 					String email = (String) comboBox.getSelectedItem();
 
-					Url url = new Url();
-
 					try {
 
+						Url url = new Url();
+						
 						LocalDate d1 = datePicker1.getDate();
 						LocalDate d2 = datePicker2.getDate();
 
@@ -167,6 +167,7 @@ public class View extends JFrame {
 						 * senao executa today
 						 */
 						LocalDate todaytemp = LocalDate.now(); 
+						//System.out.println(todaytemp);
 						//booleanos
 						boolean resultd1 = d1.isBefore(todaytemp);
 						boolean resultd2 = d2.isBefore(todaytemp);
@@ -174,10 +175,15 @@ public class View extends JFrame {
 
 							//retorna a url montada de acordo com a seleçao do usuario
 							//implementar o .attime(23,59)
+
+							//caso a data seja anterior ao dia atual attime(23,59)
+							//descobri o erro esta no metodo attime
 							url.getUrl(email, c.getToken(email).toString(), format(d1), attime(d2));
 
 						}else {
-							url.getUrl(email, c.getToken(email).toString(), format(d1), today(d2));	
+							//corrigir datepicker2 dia nao ta pegando certo
+							url.getUrl(email, c.getToken(email).toString(), format(d1), today(d2));
+							//caso a data seja a do dia atual today data e hora current
 						}
 
 					} catch (IOException e1) {
