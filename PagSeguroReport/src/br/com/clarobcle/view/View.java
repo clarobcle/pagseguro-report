@@ -167,6 +167,7 @@ public class View extends JFrame {
 						 * senao executa today
 						 */
 						LocalDate todaytemp = LocalDate.now(); 
+						//booleanos
 						boolean resultd1 = d1.isBefore(todaytemp);
 						boolean resultd2 = d2.isBefore(todaytemp);
 						if(resultd1 == true && resultd2 == true) {
