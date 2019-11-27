@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
@@ -69,6 +70,22 @@ public class View extends JFrame {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		String formatDateTime = today.format(formatter);
 		return formatDateTime;
+	}
+
+	private static String todaydate(LocalDate ld) {
+		LocalDate todaydate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatDateTime = todaydate.format(formatter);
+		return formatDateTime;
+	}
+
+	private static String attime(LocalDate ld) {
+		LocalDate date = LocalDate.now();
+		LocalTime time = LocalTime.parse("23:59");
+		LocalDateTime lt = date.atTime(time);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		String formatDateTime = lt.format(formatter);
+		return formatDateTime;  
 	}
 
 	/**
@@ -143,12 +160,23 @@ public class View extends JFrame {
 						LocalDate d1 = datePicker1.getDate();
 						LocalDate d2 = datePicker2.getDate();
 
-						if(d1.compareTo(d2) == 0) {
+						/**
+						 * @author Cláudio
+						 * se d1 e d2 forem anteriores a data atual
+						 * executa format
+						 * senao executa today
+						 */
+						LocalDate todaytemp = LocalDate.now(); 
+						boolean resultd1 = d1.isBefore(todaytemp);
+						boolean resultd2 = d2.isBefore(todaytemp);
+						if(resultd1 == true && resultd2 == true) {
+
 							//retorna a url montada de acordo com a seleçao do usuario
-							url.getUrl(email, c.getToken(email).toString(), format(d1), today(d2));
+							//implementar o .attime(23,59)
+							url.getUrl(email, c.getToken(email).toString(), format(d1), attime(d2));
 
 						}else {
-							url.getUrl(email, c.getToken(email).toString(), format(d1), format(d2));	
+							url.getUrl(email, c.getToken(email).toString(), format(d1), today(d2));	
 						}
 
 					} catch (IOException e1) {
