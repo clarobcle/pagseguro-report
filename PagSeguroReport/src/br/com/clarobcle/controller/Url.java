@@ -1,13 +1,10 @@
 package br.com.clarobcle.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.io.IOUtils;
+import javax.swing.JOptionPane;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -18,6 +15,7 @@ public class Url {
 
 	public String getUrl(String email, String token, String dateini, String datefim) throws IOException {
 
+		
 		OkHttpClient client = new OkHttpClient();
 
 		HttpUrl.Builder urlBuilder = HttpUrl.parse("https://ws.pagseguro.uol.com.br/v3/transactions/").newBuilder();
@@ -26,8 +24,9 @@ public class Url {
 		urlBuilder.addQueryParameter("initialDate", dateini);
 		urlBuilder.addQueryParameter("finalDate", datefim);
 
+		//corrige caracteres especiais na url como o @ que fica com %40
 		String url = URLDecoder.decode(urlBuilder.build().toString(), StandardCharsets.UTF_8.name());
-
+		
 		//mostrar a url carregada
 		//System.out.println(url);
 		
@@ -39,8 +38,9 @@ public class Url {
 		//guardar o response.body em uma variavel, pois o response.body limpa o body
 		String result = response.body().string();
 		//mostrar o body do html
-		System.out.println(result);
-		//System.out.println("XML response.body : "+result);
+		//System.out.println(result);
+		//somente com o JOption pane ele mostra a saida qd ela e grande
+		//JOptionPane.showMessageDialog(null, result);
 		return result;
 
 	}

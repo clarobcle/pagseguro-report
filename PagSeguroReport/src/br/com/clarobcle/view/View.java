@@ -8,7 +8,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
@@ -25,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import com.github.lgooddatepicker.datepicker.DatePicker;
 import com.github.lgooddatepicker.datepicker.DatePickerSettings;
 
+import br.com.clarobcle.controller.ToFile;
 import br.com.clarobcle.controller.Url;
 import br.com.clarobcle.secret.Credentials;
 
@@ -62,7 +62,7 @@ public class View extends JFrame {
 	}
 
 	/**
-	 * @author Cláudio
+	 * @author ClÃ¡udio
 	 * @return
 	 */
 	private static String today(LocalDate ld) {
@@ -100,7 +100,7 @@ public class View extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblPagseguroVendas = new JLabel("PagSeguro Relatórios:");
+		JLabel lblPagseguroVendas = new JLabel("PagSeguro Relatorios:");
 		lblPagseguroVendas.setBounds(217, 10, 136, 16);
 		contentPane.add(lblPagseguroVendas);
 
@@ -142,26 +142,29 @@ public class View extends JFrame {
 		comboBox.setSelectedIndex(-1);
 		contentPane.add(comboBox);
 
-		JButton bt_submit = new JButton("Visualizar Relatório");
+		JButton bt_submit = new JButton("Visualizar Relatorio");
 		bt_submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				//&initialDate=2019-11-07T00:00:00.000-03:00&finalDate=2019-11-07T23:59:59.000-03:00
 
+				
 				//validar combobox se nulo
 				if (comboBox.getSelectedItem() != null) {
 
 					String email = (String) comboBox.getSelectedItem();
 
 					try {
-
+						
 						Url url = new Url();
+						ToFile f = new ToFile();
+						
 						
 						LocalDate d1 = datePicker1.getDate();
 						LocalDate d2 = datePicker2.getDate();
 
 						/**
-						 * @author Cláudio
+						 * @author Claudio
 						 * se d1 e d2 forem anteriores a data atual
 						 * executa format
 						 * senao executa today
@@ -173,16 +176,17 @@ public class View extends JFrame {
 						boolean resultd2 = d2.isBefore(todaytemp);
 						if(resultd1 == true && resultd2 == true) {
 
-							//retorna a url montada de acordo com a seleçao do usuario
+							//retorna a url montada de acordo com a seleÃ§ao do usuario
 							//implementar o .attime(23,59)
 
 							//caso a data seja anterior ao dia atual attime(23,59)
 							//descobri o erro esta no metodo attime
-							url.getUrl(email, c.getToken(email).toString(), format(d1), attime(d2));
-
+							String content = url.getUrl(email, c.getToken(email).toString(), format(d1), attime(d2));
+							f.createFile(content,email);
 						}else {
 							//corrigir datepicker2 dia nao ta pegando certo
-							url.getUrl(email, c.getToken(email).toString(), format(d1), today(d2));
+							String content = url.getUrl(email, c.getToken(email).toString(), format(d1), today(d2));
+							f.createFile(content,email);
 							//caso a data seja a do dia atual today data e hora current
 						}
 
